@@ -1,0 +1,82 @@
+/* Reset de base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+/* Style du header et navigation */
+header {
+    background-color: green;
+
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    border-radius: 15px;
+    width: 40%;
+    margin: 5px auto;
+    min-width: 500px;
+}
+
+#header_logo {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    left: 1rem;
+
+}
+
+nav {
+    width: 100%;
+}
+
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
+nav ul li {
+    margin: 0;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+nav ul li a:hover {
+    color: #ddd;
+}
+
+/* Style du contenu principal */
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+/* Style du footer */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}

@@ -1,0 +1,11 @@
+{
+  "name": "SeeCity",
+  "version": "1.0.0",
+  "description": "SeeCity, pour voir la ville sous sont meilleur jour.",
+  "main": "js/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Grp F-6",
+  "license": "ISC"
+}
