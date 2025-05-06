@@ -52,6 +52,8 @@
 
 .box {
     background-color: #3498db;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+
     color: white;
     padding: 20px;
     border-radius: 8px;
@@ -65,12 +67,10 @@
     position: relative;
 }
 
-/* Style pour les boutons désactivés */
 .carousel-button[style*="opacity: 0.5"] {
     cursor: not-allowed;
 }
 
-/* Animation de transition */
 .carousel-track {
     display: flex;
     transition: transform 0.5s ease-in-out;

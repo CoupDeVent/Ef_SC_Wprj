@@ -1,4 +1,3 @@
-/* Reset de base */
 * {
     margin: 0;
     padding: 0;
@@ -10,9 +9,9 @@ body {
     line-height: 1.6;
 }
 
-/* Style du header et navigation */
 header {
     background-color: green;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
 
     padding: 1rem;
     display: flex;
@@ -58,7 +57,6 @@ nav ul li a:hover {
     color: #ddd;
 }
 
-/* Style du contenu principal */
 main {
     max-width: 1200px;
     margin: 0 auto;
@@ -70,13 +68,10 @@ h1 {
     margin-bottom: 1rem;
 }
 
-/* Style du footer */
 footer {
     background-color: #333;
     color: white;
     text-align: center;
     padding: 1rem;
-    position: fixed;
-    bottom: 0;
     width: 100%;
 }

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SeeCity - Signaler un problème</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/forms.css">
+</head>
+
+<body>
+<header>
+  <img src="../img/SeeCity_logo.png" alt="Logo SeeCity" id="header_logo">
+  <nav>
+    <ul>
+      <li><a href="./accueil.html">Accueil</a></li>
+      <li><a href="./signaler_un_probleme.html">Signaler un problème</a></li>
+      <li><a href="./contact.html">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<div class="container">
+  <form id="userForm">
+    <h2>Signaler un problème</h2>
+
+    <div class="form-group">
+      <label for="nom">Nom :</label>
+      <input type="text" id="nom" name="nom" required>
+    </div>
+
+    <div class="form-group">
+      <label for="prenom">Prénom :</label>
+      <input type="text" id="prenom" name="prenom" required>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Adresse email :</label>
+      <input type="email" id="email" name="email" required>
+    </div>
+
+    <div class="form-group">
+      <label for="typeProbleme">Type de problème :</label>
+      <select id="typeProbleme" name="typeProbleme" required>
+        <option value="">Sélectionnez un type</option>
+        <option value="incivilite">Incivilité</option>
+        <option value="proprete">Propreté</option>
+        <option value="maintenance">Maintenance</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description du problème :</label>
+      <textarea id="description" name="description" rows="4"></textarea>
+    </div>
+
+    <div class="form-group photo-upload">
+      <label>Photos (optionnel) :</label>
+      <div class="photo-buttons">
+        <button type="button" class="photo-btn" id="takePhoto">
+          <img src="../img/camera-icon.png" alt="Prendre une photo" class="button-icon">
+          Prendre une photo
+        </button>
+        <button type="button" class="photo-btn" onclick="document.getElementById('photos').click()">
+          <img src="../img/gallery-icon.png" alt="Choisir des photos" class="button-icon">
+          Choisir des photos
+        </button>
+        <input type="file" id="photos" name="photos" accept="image/*" capture="environment" multiple>
+      </div>
+      <div id="imagePreview"></div>
+    </div>
+
+    <input type="hidden" id="location" name="location">
+    <button type="submit" class="submit-btn">Envoyer le signalement</button>
+  </form>
+</div>
+
+<footer>
+  <p>&copy; 2025 SeeCity. Tous droits réservés.</p>
+</footer>
+
+<script src="../js/forms.js"></script>
+<script src="../js/main.js"></script>
+</body>
+</html>
