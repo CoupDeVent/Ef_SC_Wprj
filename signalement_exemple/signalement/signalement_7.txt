@@ -1,0 +1,8 @@
+Date: 14/09/2024
+Nom: Rousseau
+Prénom: Camille
+Email: camille.rousseau@efrei.net
+Type de problème: incivilité
+Description: Graffiti sur les murs.
+Localisation: 48.790876, 2.360123 - Rue Émile Combes
+Statut: NT

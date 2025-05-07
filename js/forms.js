@@ -2,8 +2,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('userForm');
     const photosInput = document.getElementById('photos');
     const imagePreview = document.getElementById('imagePreview');
+    const cameraModal = document.getElementById('cameraModal');
+    const cameraElement = document.getElementById('camera');
+    const captureButton = document.getElementById('captureButton');
+    const closeCameraButton = document.getElementById('closeCameraButton');
     let userLocation = null;
     const capturedImages = new Set();
+    let stream = null;
 
     // Fonction pour obtenir la localisation
     function getLocation() {
@@ -22,10 +27,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Obtenir la localisation dès le chargement de la page
     getLocation();
 
-    // Fonction pour ajouter une image à la prévisualisation
     function addImageToPreview(file) {
         const reader = new FileReader();
         reader.onload = function(e) {
@@ -51,7 +54,14 @@ document.addEventListener('DOMContentLoaded', function() {
         reader.readAsDataURL(file);
     }
 
-    // Gestion de la sélection de fichiers
+    function closeCamera() {
+        if (stream) {
+            stream.getTracks().forEach(track => track.stop());
+        }
+        cameraModal.style.display = 'none';
+        cameraElement.srcObject = null;
+    }
+
     photosInput.addEventListener('change', function(e) {
         const files = Array.from(e.target.files);
         files.forEach(file => {
@@ -61,61 +71,50 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Gestion de la capture de photo
     const takePhotoButton = document.getElementById('takePhoto');
     takePhotoButton.addEventListener('click', async () => {
         try {
-            const stream = await navigator.mediaDevices.getUserMedia({
+            stream = await navigator.mediaDevices.getUserMedia({
                 video: {
                     facingMode: 'environment'
                 }
             });
 
-            // Créer et configurer l'élément vidéo
-            const videoElement = document.createElement('video');
-            videoElement.srcObject = stream;
-            videoElement.style.display = 'none';
-            document.body.appendChild(videoElement);
-
-            // Attendre que la vidéo soit chargée
-            await videoElement.play();
-
-            // Créer un canvas pour la capture
-            const canvas = document.createElement('canvas');
-            canvas.width = videoElement.videoWidth;
-            canvas.height = videoElement.videoHeight;
-
-            // Capturer l'image
-            const context = canvas.getContext('2d');
-            context.drawImage(videoElement, 0, 0);
-
-            // Convertir en fichier
-            canvas.toBlob((blob) => {
-                const file = new File([blob], `photo_${Date.now()}.jpg`, { type: 'image/jpeg' });
-                addImageToPreview(file);
-
-                // Nettoyer
-                stream.getTracks().forEach(track => track.stop());
-                videoElement.remove();
-            }, 'image/jpeg');
-
+            cameraElement.srcObject = stream;
+            cameraModal.style.display = 'block';
         } catch (err) {
-            console.error("Erreur lors de la capture de photo:", err);
+            console.error("Erreur lors de l'accès à la caméra:", err);
             alert("Impossible d'accéder à la caméra. Veuillez vérifier vos permissions.");
         }
     });
 
-    // Gestion du formulaire
+    captureButton.addEventListener('click', () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = cameraElement.videoWidth;
+        canvas.height = cameraElement.videoHeight;
+
+        const context = canvas.getContext('2d');
+        context.drawImage(cameraElement, 0, 0, canvas.width, canvas.height);
+
+        canvas.toBlob((blob) => {
+            const file = new File([blob], `photo_${Date.now()}.jpg`, { type: 'image/jpeg' });
+            addImageToPreview(file);
+            closeCamera();
+        }, 'image/jpeg');
+    });
+
+    closeCameraButton.addEventListener('click', closeCamera);
+
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        // Vérifier si la localisation est disponible
         if (!userLocation) {
             alert("La localisation n'a pas pu être récupérée. Veuillez autoriser l'accès à votre position et réessayer.");
             getLocation();
             return;
         }
 
+        const timestamp = new Date().getTime();
         const formData = {
             nom: document.getElementById('nom').value,
             prenom: document.getElementById('prenom').value,
@@ -126,7 +125,16 @@ document.addEventListener('DOMContentLoaded', function() {
             date: new Date().toLocaleString()
         };
 
-        // Créer le contenu du fichier
+        // Créer un dossier principal pour le signalement
+        const folderName = `signalement_${formData.nom}_${formData.prenom}_${timestamp}`;
+
+        // Créer un objet pour stocker tout le contenu
+        const zipContent = new JSZip();
+
+        // Créer le dossier images dans le zip
+        const imagesFolder = zipContent.folder("images");
+
+        // Ajouter le fichier texte
         const content = `Date: ${formData.date}
 Nom: ${formData.nom}
 Prénom: ${formData.prenom}
@@ -135,14 +143,36 @@ Type de problème: ${formData.typeProbleme}
 Description: ${formData.description}
 Localisation: ${formData.location}`;
 
-        // Créer et télécharger le fichier
-        const blob = new Blob([content], { type: 'text/plain' });
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `signalement_${formData.nom}_${formData.prenom}_${new Date().getTime()}.txt`;
-        a.click();
-        window.URL.revokeObjectURL(url);
+        zipContent.file("signalement.txt", content);
+
+        // Ajouter les images au dossier images
+        const imagePromises = Array.from(capturedImages).map((file, index) => {
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const imageData = e.target.result.split(',')[1]; // Enlever le préfixe data:image/*;base64,
+                    imagesFolder.file(`image_${index + 1}.jpg`, imageData, {base64: true});
+                    resolve();
+                };
+                reader.readAsDataURL(file);
+            });
+        });
+
+        // Attendre que toutes les images soient ajoutées
+        await Promise.all(imagePromises);
+
+        // Générer le fichier zip
+        zipContent.generateAsync({type: "blob"}).then(function(content) {
+            // Créer le lien de téléchargement
+            const url = window.URL.createObjectURL(content);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${folderName}.zip`;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+        });
 
         // Réinitialiser le formulaire
         form.reset();

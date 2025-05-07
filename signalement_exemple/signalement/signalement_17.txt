@@ -1,0 +1,8 @@
+Date: 09/09/2024
+Nom: Pereira
+Prénom: Camille
+Email: camille.pereira@gmail.com
+Type de problème: propreté
+Description: Poubelles non ramassées depuis plusieurs jours.
+Localisation: 48.786540, 2.359710 - Rue Georges Lebigot
+Statut: NT

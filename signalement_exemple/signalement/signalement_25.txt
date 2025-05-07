@@ -1,0 +1,8 @@
+Date: 12/01/2025
+Nom: Richard
+Prénom: Léo
+Email: léo.richard@efrei.net
+Type de problème: incivilité
+Description: Dégradation de mobilier urbain.
+Localisation: 48.789654, 2.362987 - Rue Anatole France
+Statut: ECT

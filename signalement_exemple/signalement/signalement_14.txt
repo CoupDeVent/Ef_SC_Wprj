@@ -1,0 +1,8 @@
+Date: 03/01/2025
+Nom: Roussel
+Prénom: Lucas
+Email: lucas.roussel@efrei.net
+Type de problème: maintenance
+Description: Trottoir fissuré nécessitant une réparation.
+Localisation: 48.792999, 2.364321 - Rue Maurice Thorez
+Statut: ECT

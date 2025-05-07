@@ -1,0 +1,8 @@
+Date: 19/08/2024
+Nom: Thomas
+Prénom: Chloé
+Email: chloé.thomas@sfr.fr
+Type de problème: propreté
+Description: Accumulation de déchets sur le trottoir.
+Localisation: 48.789999, 2.363210 - Rue des Écoles
+Statut: NT

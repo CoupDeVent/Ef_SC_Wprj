@@ -1,0 +1,8 @@
+Date: 25/11/2024
+Nom: Durand
+Prénom: Léo
+Email: léo.durand@orange.fr
+Type de problème: maintenance
+Description: Feu de signalisation défectueux.
+Localisation: 48.787333, 2.362200 - Rue Jean Lurçat
+Statut: NT

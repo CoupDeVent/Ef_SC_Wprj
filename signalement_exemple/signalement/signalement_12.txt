@@ -1,0 +1,8 @@
+Date: 12/02/2025
+Nom: Rousseau
+Prénom: Laura
+Email: laura.rousseau@outlook.fr
+Type de problème: propreté
+Description: Dépôt sauvage d’encombrants.
+Localisation: 48.786540, 2.359710 - Rue Georges Lebigot
+Statut: T

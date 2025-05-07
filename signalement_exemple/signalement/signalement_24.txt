@@ -1,0 +1,8 @@
+Date: 19/11/2024
+Nom: Legrand
+Prénom: Léo
+Email: léo.legrand@sfr.fr
+Type de problème: propreté
+Description: Accumulation de déchets sur le trottoir.
+Localisation: 48.792345, 2.355678 - Rue du Colonel Fabien
+Statut: T

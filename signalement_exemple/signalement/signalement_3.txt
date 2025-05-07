@@ -1,0 +1,8 @@
+Date: 17/08/2024
+Nom: Guerin
+Prénom: Paul
+Email: paul.guerin@orange.fr
+Type de problème: incivilité
+Description: Vandalisme sur un arrêt de bus.
+Localisation: 48.785431, 2.362874 - Rue Ambroise Croizat
+Statut: NT
