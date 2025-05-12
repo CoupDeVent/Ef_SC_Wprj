@@ -24,7 +24,7 @@ types_problemes = {
         'Stationnement sauvage.'
     ],
     'propreté': [
-        'Dépôt sauvage d’encombrants.',
+        'Dépôt sauvage d\'encombrants.',
         'Accumulation de déchets sur le trottoir.',
         'Poubelles non ramassées depuis plusieurs jours.',
         'Déchets éparpillés dans le parc.',
@@ -34,7 +34,7 @@ types_problemes = {
         'Lampadaire hors service.',
         'Nid-de-poule sur la chaussée.',
         'Feu de signalisation défectueux.',
-        'Bouche d’égout endommagée.',
+        'Bouche d\'égout endommagée.',
         'Trottoir fissuré nécessitant une réparation.'
     ]
 }
@@ -90,7 +90,7 @@ mails = [
 ]
 
 # Générer les fichiers
-os.makedirs('signalement', exist_ok=True)
+os.makedirs('signalement_exemple/signalement', exist_ok=True)
 
 for i in range(1, 31):
     nom = random.choice(noms)
@@ -114,7 +114,7 @@ for i in range(1, 31):
         f"Statut: {statut}"
     )
 
-    with open(f'signalement/signalement_{i}.txt', 'w') as fichier:
+    with open(f'signalement_exemple/signalement/signalement_{i}.txt', 'w', encoding='utf-8') as fichier:
         fichier.write(contenu)
 
 print("30 fichiers générés dans le dossier 'descriptions'.")

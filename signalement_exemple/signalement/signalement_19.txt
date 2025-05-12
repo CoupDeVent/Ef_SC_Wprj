@@ -1,8 +1,8 @@
-Date: 12/10/2024
-Nom: Richard
-Prénom: Julien
-Email: julien.richard@orange.fr
-Type de problème: propreté
-Description: Poubelles non ramassées depuis plusieurs jours.
-Localisation: 48.793456, 2.366789 - Rue de la République
-Statut: NT
+Date: 08/11/2024
+Nom: Petit
+PrÃ©nom: Marie
+Email: marie.petit@sfr.fr
+Type de problÃ¨me: propretÃ©
+Description: Poubelles non ramassÃ©es depuis plusieurs jours.
+Localisation: 48.785678, 2.359999 - Rue des Jardins
+Statut: T
