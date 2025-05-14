@@ -1,15 +1,3 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    background-color: #f4f4f4;
-}
-
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -47,8 +35,18 @@ th, td {
     padding: 12px 15px;
     text-align: left;
     border-bottom: 1px solid #ddd;
+    border-right: 1px solid #ddd; /* Ligne de démarcation entre les colonnes */
+    max-width: 190px; /* Largeur maximale pour chaque colonne */
+    overflow: hidden; /* Masquer le débordement */    
+    text-overflow: ellipsis; /* Ajouter des points de suspension */
 }
 
+/* Ajout d'une ligne de démarcation entre les colonnes */
+th:last-child, td:last-child {
+    border-right: none; /* Supprimer la ligne pour la dernière colonne */
+}
+
+/* Mise à jour pour définir une largeur minimale dynamique pour chaque colonne */
 th {
     background-color: #4CAF50;
     color: white;
@@ -74,13 +72,133 @@ tr:hover {
     margin-bottom: 20px;
 }
 
-/* Responsive design */
-@media screen and (max-width: 768px) {
-    .container {
-        padding: 10px;
-    }
-    
-    th, td {
-        padding: 8px 10px;
-    }
+/* Ajout de styles pour les flèches de tri */
+.sort {
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.sort.asc::after {
+    content: '\25B2'; /* Flèche vers le haut */
+    font-size: 0.8em;
+    color: #333;
+}
+
+.sort.desc::after {
+    content: '\25BC'; /* Flèche vers le bas */
+    font-size: 0.8em;
+    color: #333;
+}
+
+.sort:not(.asc):not(.desc)::after {
+    content: '\25B2\25BC'; /* Flèches haut et bas */
+    font-size: 0.8em;
+    color: #aaa;
+}
+
+/* Styles pour les pastilles de statut */
+.status-pill {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+/* Centrer uniquement les pastilles de statut */
+.status-pill {
+    margin: auto;
+    display: block;
+}
+
+.status-pill.t {
+    background-color: green;
+}
+
+.status-pill.ect {
+    background-color: orange;
+}
+
+.status-pill.nt {
+    background-color: red;
+}
+
+/* Style pour les messages d'erreur */
+.error {
+    color: #dc3545;
+    background-color: #ffe6e6;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+/* Ajout de styles pour les flèches de tri */
+.sort {
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5px;
+    white-space: nowrap;
+}
+
+.sort.asc::after {
+    content: '\25B2'; /* Flèche vers le haut */
+    font-size: 0.8em;
+    color: #333;
+}
+
+.sort.desc::after {
+    content: '\25BC'; /* Flèche vers le bas */
+    font-size: 0.8em;
+    color: #333;
+}
+
+.sort:not(.asc):not(.desc)::after {
+    content: '\25B2\25BC'; /* Flèches haut et bas */
+    font-size: 0.8em;
+    color: #aaa;
+}
+
+/* Styles pour la barre de recherche */
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.search-container select {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    font-size: 14px;
+    color: #333;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s;
+}
+
+.search-container select:focus {
+    border-color: #4CAF50;
+    outline: none;
+}
+
+.search-container input {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #333;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s;
+}
+
+.search-container input:focus {
+    border-color: #4CAF50;
+    outline: none;
 }

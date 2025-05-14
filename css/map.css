@@ -1,0 +1,13 @@
+#map {
+    height: 500px;
+    width: 100%;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+}
+
+#signalement-info {
+    padding: 10px;
+    border: 1px solid #ccc;
+    background: #f9f9f9;
+    font-family: Arial, sans-serif;
+}
