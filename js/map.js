@@ -20,70 +20,40 @@ function getMarkerColor(status) {
     }
 }
 
-// Ajout de logs pour déboguer
-console.log('Chargement des signalements...');
+// Génération de la liste des fichiers de signalement
+const signalementFiles = Array.from({ length: 30 }, (_, i) => `signalement_${i + 1}.txt`);
 
-// Vérification de la nomenclature des fichiers
-fetch('../../signalement_exemple/signalement')
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`Erreur lors du chargement des fichiers : ${response.statusText}`);
-        }
-        return response.text();
-    })
-    .then(data => {
-        console.log('Fichiers trouvés :', data);
-        const files = data.split('\n').filter(file => file.trim() !== '' && /^signalement_\d+\.txt$/.test(file.trim()));
+// Chargement des signalements
+signalementFiles.forEach(file => {
+    fetch(`../../signalement_exemple/signalement/${file}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Erreur lors du chargement du fichier : ${file}`);
+            }
+            return response.text();
+        })
+        .then(content => {
+            const lines = content.split('\n');
+            const localisation = lines.find(line => line.startsWith('Localisation:')).split(': ')[1];
+            const [lat, lng] = localisation.split(' - ')[0].split(', ').map(Number);
+            const status = lines.find(line => line.startsWith('Statut:')).split(': ')[1];
 
-        if (files.length === 0) {
-            console.error('Aucun fichier de signalement valide trouvé.');
-            return;
-        }
-
-        files.forEach(file => {
-            console.log(`Chargement du fichier : ${file}`);
-            fetch(`../../signalement_exemple/signalement/${file}`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`Erreur lors du chargement du fichier ${file} : ${response.statusText}`);
-                    }
-                    return response.text();
+            const marker = L.marker([lat, lng], {
+                icon: L.divIcon({
+                    className: 'custom-icon',
+                    html: `<div style="background-color: ${getMarkerColor(status)}; width: 12px; height: 12px; border-radius: 50%;"></div>`
                 })
-                .then(content => {
-                    console.log(`Contenu du fichier ${file} :`, content);
-                    const lines = content.split('\n');
-                    const localisationLine = lines.find(line => line.startsWith('Localisation:'));
-                    const statusLine = lines.find(line => line.startsWith('Statut:'));
+            }).addTo(map);
 
-                    if (!localisationLine || !statusLine) {
-                        console.error(`Données manquantes dans le fichier ${file}`);
-                        return;
+            marker.on('click', () => {
+                const infoDiv = document.getElementById('signalement-info');
+                infoDiv.innerHTML = `<h3>Informations du signalement</h3>`;
+                lines.forEach(line => {
+                    if (line.trim() !== '') {
+                        infoDiv.innerHTML += `<p>${line}</p>`;
                     }
-
-                    const localisation = localisationLine.split(': ')[1];
-                    const [lat, lng] = localisation.split(' - ')[0].split(', ').map(Number);
-                    const status = statusLine.split(': ')[1];
-
-                    console.log(`Ajout d'un marqueur pour ${file} à la position [${lat}, ${lng}] avec le statut ${status}`);
-
-                    const marker = L.marker([lat, lng], {
-                        icon: L.divIcon({
-                            className: 'custom-icon',
-                            html: `<div style="background-color: ${getMarkerColor(status)}; width: 12px; height: 12px; border-radius: 50%;"></div>`
-                        })
-                    }).addTo(map);
-
-                    marker.on('click', () => {
-                        const infoDiv = document.getElementById('signalement-info');
-                        infoDiv.innerHTML = `<h3>Informations du signalement</h3>`;
-                        lines.forEach(line => {
-                            if (line.trim() !== '') {
-                                infoDiv.innerHTML += `<p>${line}</p>`;
-                            }
-                        });
-                    });
-                })
-                .catch(error => console.error(`Erreur lors du traitement du fichier ${file} :`, error));
-        });
-    })
-    .catch(error => console.error('Erreur lors du chargement des signalements :', error));
+                });
+            });
+        })
+        .catch(error => console.error(error.message));
+});

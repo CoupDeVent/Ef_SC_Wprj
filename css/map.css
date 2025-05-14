@@ -1,13 +1,33 @@
+/* Style pour la carte */
 #map {
     height: 500px;
     width: 100%;
-    border: 1px solid #ccc;
+    border: 2px solid #0078D7; /* Couleur principale du site */
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
 }
 
+/* Style pour les informations de signalement */
 #signalement-info {
-    padding: 10px;
-    border: 1px solid #ccc;
-    background: #f9f9f9;
-    font-family: Arial, sans-serif;
+    padding: 15px;
+    border: 2px solid #0078D7; /* Couleur principale du site */
+    background: #f4f4f4; /* Couleur de fond douce */
+    border-radius: 8px;
+    font-family: 'Arial', sans-serif;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#signalement-info h3 {
+    margin-top: 0;
+    color: #0078D7; /* Couleur principale du site */
+    font-size: 1.5em;
+    border-bottom: 2px solid #0078D7;
+    padding-bottom: 5px;
+}
+
+#signalement-info p {
+    margin: 5px 0;
+    color: #333; /* Couleur du texte */
+    line-height: 1.6;
 }
